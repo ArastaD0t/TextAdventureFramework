@@ -1,4 +1,8 @@
 #CMD#
+if [[ ! -f "save" ]]
+then
+	mkdir save
+fi
 
 ######IDs###Func####
 alias getType="cat Adventure.IDS|grep $type |cut -c 4-15"
@@ -8,7 +12,7 @@ alias readInv="cat save/$prof|grep inv|cut -c 4-50"
 
 
 ###########Menu#########
-while [ True ];
+while true;
 do
 echo '©~{==============>    '
 echo 'Adventure by ArastaD0t'
@@ -22,28 +26,37 @@ read c
 case $c in
 	1) ##Load##
 	echo "What Story You Want Load ?"
+	echo '©~{===========>'
 	ls save
+	echo '©~{======>'
+	echo "back"
 	read prof
-	name=$(cat save/$prof |grep name|cut -c 6-50)
-	class=$(cat save/$prof|grep class|cut -c 7-50)
-	born=$(cat save/$prof|grep born|cut -c 6-50)
-	hp=$(cat save/$prof|grep hp|cut -c 4-50)
-	inv=$(cat save/$prof|grep inv|cut -c 5-50)
-	xp=$(cat save/$prof|grep xp|cut -c 4-50)
-	mana=$(cat save/$prof|grep mana|cut -c 6-50)
-	money=$(cat save/$prof|grep money|cut -c 7-50)
-	extra=$(cat save/$prof|grep extra|cut -c 7-50)
-	status=$(cat save/$prof|grep status|cut -c 8-50)
-	place=$(cat save/$prof|grep place|cut -c 7-50)
-	story=$prof
-	echo "You $(cat save/$prof |grep name |cut -c 6-29) wake up with $(cat save/$prof |grep inv|cut -c 5-50) ...."
-	break
+	case $prof in
+		   exit|quit|Exit|Quit|q|Q)
+		   exit & ./Adventure.sh
+		   ;;
+		   *)
+		   name=$(cat save/$prof |grep name|cut -c 6-50)
+	           class=$(cat save/$prof|grep class|cut -c 7-50)
+	           born=$(cat save/$prof|grep born|cut -c 6-50)
+	           hp=$(cat save/$prof|grep hp|cut -c 4-50)
+	           inv=$(cat save/$prof|grep inv|cut -c 5-50)
+	           xp=$(cat save/$prof|grep xp|cut -c 4-50)
+	           mana=$(cat save/$prof|grep mana|cut -c 6-50)
+	           money=$(cat save/$prof|grep money|cut -c 7-50)
+	           extra=$(cat save/$prof|grep extra|cut -c 7-50)
+	           status=$(cat save/$prof|grep status|cut -c 8-50)
+	           place=$(cat save/$prof|grep place|cut -c 7-50)
+	           story=$prof
+	           echo "You $(cat save/$prof |grep name |cut -c 6-29) wake up with $(cat save/$prof |grep inv|cut -c 5-50) ...."
+
+	esac
 ;;
 	2) ##New##
 	echo 'What is yours name hero ?'
 	read name
 	echo "What is your class $name ?"
-	echo '1)Knight 2)Archer 3)Bandit 4)Mag'
+	echo "1)Knight 2)Archer 3)Bandit 4)Mag"
 	read  class
 	case $class in
               	1|Knight|knight)
@@ -118,8 +131,8 @@ done
 ###Tutorial###
 echo "You are wakeup in soo... soo... cold night"
 echo "You little out of mind..."
-echo 'If you have whenever out of your mind you can ask yourself for /help'
-echo 'And now is one of this times ( type /help )'
+echo 'If you have whenever out of your mind you can ask yourself for /help '
+echo "And now is one of this times ( type /help )"
 read c
 
 ###interactivated###
@@ -129,14 +142,14 @@ do
 if [[ "$c" == */* ]]; then
 case $c in
 	/help|/Help|/HELP)
-	echo ' Commands:'
+	echo " Commands:"
 	echo '		 /me    Show name        '
 	echo '		 /hp    Show yours Health'
 	echo ' 		 /inv   Show Inventory   '
 	echo '		 /xp    Show XP          '
 	echo '		 /money Show yours money '
 	echo '		 /mana  Show Mana Status '
-	echo ' Controls:'
+	echo " Controls: "
 	echo '		where   Show where are u '
 	echo '		sleep   Save and leave story'
 	read c
@@ -154,7 +167,7 @@ case $c in
 	read c
 ;;
 	/xp|/Xp|/XP)
-	echo "You have $xp xp's"
+	echo "You have $xp exps"
 	read c
 ;;
 	/money|/Money|/MONEY)
@@ -171,7 +184,7 @@ esac
 else
 case $c in
 	sleep|Sleep|SLEEP)
-	echo 'Good sleep hero... good sleep...'
+	echo "Good sleep hero... good sleep..."
 	exit
 ;;
 	where|Where|WHERE)
